@@ -28,5 +28,8 @@
 ::
 :: Usage: Setup.bat
 
-:: Activate the supported version of Node.js for development:
+:: Activate the supported version of Node.js for development.
 fnm use --install-if-missing
+
+:: Install commitlint and Husky and configure Husky to execute Git hooks.
+npm ci

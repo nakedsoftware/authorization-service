@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # Copyright 2025 Naked Software, LLC
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,19 +18,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-# setup.sh
+# commit-msg
 #
-# This program automates the steps necessary to prepare a new repository for
-# development. It is intended to be run only once, immediately after cloning
-# the repository.
-#
-# Usage: setup.sh
+# This program executes for the commit-msg Git hook. This program will use
+# commitlint to verify the commit message is properly formatted. If the commit
+# message is not properly formatted, the commit will be aborted.
 
-# Fail on any error
-set -e
-
-# Activate the supported version of Node.js
-fnm use --install-if-missing
-
-# Install commitlint and Husky and configure Husky to execute Git hooks.
-npm ci
+npx --no -- commitlint --edit $1
