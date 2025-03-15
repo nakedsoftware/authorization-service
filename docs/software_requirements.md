@@ -6,6 +6,10 @@ In order to successfully build, run, debug, and develop for Authorization Servic
 1. [Git](#git)
 1. [GitHub CLI](#github-cli)
 1. [Fast Node Manager](#fast-node-manager)
+1. [Docker Desktop](#docker-desktop)
+1. [Visual Studio Code](#visual-studio-code)
+1. [Remote Development Extension Pack for Visual Studio Code](#remote-development-extension-pack-for-visual-studio-code)
+1. [JetBrains Goland](#jetbrains-goland)
 
 ## Homebrew
 
@@ -67,3 +71,30 @@ curl -fsSL https://fnm.vercel.app/install | bash
 ```batch
 winget install Schniz.fnm
 ```
+
+## Docker Desktop
+
+- __Apple macOS__
+- __Microsoft Windows__
+
+[Docker Desktop](https://www.docker.com/products/docker-desktop/) is a tool that developers can use to build and run Docker containers on their development machine. Docker Desktop hosts and runs containers on the host operating system for developers. For development of Authorization Service, most development will take place in a [development container](https://containers.dev), which is a special kind of Docker container that includes all of the tools and programming languages that are needed to build, run, debug, and develop Authentication Service.
+
+Docker Desktop can be downloaded from the Docker [website](https://www.docker.com/products/docker-desktop/).
+
+## Visual Studio Code
+
+[Visual Studio Code](https://code.visualstudio.com) is an open-source text editor and extensible development environment created by [Microsoft](https://www.microsoft.com). Visual Studio Code can be used to build, run, debug, and test the Authorization Service software components. Naked Software uses Visual Studio Code to do development activities for Authorization Service.
+
+Visual Studio Code can be downloaded and installed from the [website](https://code.visualstudio.com).
+
+## Remote Development Extension Pack for Visual Studio Code
+
+[Remote Development Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) for [Visual Studio Code](#visual-studio-code) is a set of extensions that are helpful with developing in remote environments. Remote Development Extension Pack includes support for running [development containers](https:/containers.dev). A development container is a Docker container that has been pre-configured to contain development tools and libraries needed to build, run, test, and develop for Authorization Service.
+
+Remote Development Extension Pack can be installed from [here](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack).
+
+## OPTIONAL: JetBrains Goland
+
+[JetBrains Goland](https://www.jetbrains.com/go/) is a professional development environment for software development using the [Go programming language](https://go.dev/). Goland can be used as an alternative to developing with [Visual Studio Code](#visual-studio-code) when the extra features and power of Goland is needed.
+
+Goland can be downloaded and installed from the [Goland website](https://www.jetbrains.com/go/).
