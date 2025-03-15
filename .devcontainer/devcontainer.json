@@ -1,0 +1,23 @@
+{
+    "name": "sharepoint-embedded-poc",
+    "dockerComposeFile": "compose.yaml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "22.14.0"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [],
+            "settings": {}
+        }
+    },
+    "remoteUser": "vscode",
+    "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
+    "forwardPorts": [],
+    "containerEnv": {}
+}
