@@ -2,9 +2,9 @@
 
 In order to successfully build, run, debug, and develop for Authorization Service, you will need to have the following software installed in your development environment. Not all software is required for all platforms. Please review each requirement and note the platforms where the software is required.
 
-1. [Homebrew]()
-1. [Git]()
-1. [GitHub CLI]()
+1. [Homebrew](#homebrew)
+1. [Git](#git)
+1. [GitHub CLI](#github-cli)
 
 ## Homebrew
 
