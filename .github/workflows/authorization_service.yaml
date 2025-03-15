@@ -57,10 +57,18 @@ jobs:
         with:
           go-version-file: 'src/authorization/go.mod'
           cache-dependency-path: 'src/authorization/go.sum'
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Build Authorization Service
-        run: go build -v ./cmd/authorization
+        run: go build -v -o build/ ./cmd/authorization
         working-directory: src/authorization
         env:
           GCO_ENABLED: 0
           GOOS: linux
           GOARCH: ${{ matrix.architecture }}
+      - name: Build Docker Container
+        uses: docker/build-push-action@v6
+        with:
+          context: src/authorization
+          platforms: linux/${{ matrix.architecture }}
+          tags: nakedsoftware/authorization-service
