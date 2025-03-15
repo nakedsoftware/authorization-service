@@ -1,0 +1,59 @@
+# Copyright 2025 Naked Software, LLC
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+# commitlint.yaml
+#
+# This GitHub Actions workflow will use commitlint to validate that the commits
+# are properly formatted. This workflow will run to validate all requests for
+# a pull request, and for the latest request in the main branch.
+
+name: Validate Commit Messages
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    commitlint:
+        name: Validate Commit Messages
+        runs-on: ubuntu-22.04
+        steps:
+            - name: Checkout the repository
+              uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
+            - name: Install Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version-file: '.node-version'
+                cache: npm
+                cache-dependency-path: package-lock.json
+            - name: Install commitlint
+              run: npm ci
+            - name: Validate current commit (last commit) with commitlint
+              if: github.event_name == 'push'
+              run: npx commitlint --last --verbose
+            - name: Validate PR commits with commitlint
+              if: github.event_name == 'pull_request'
+              run: npx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
