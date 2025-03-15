@@ -55,7 +55,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: 'src/authorization/go.work'
+          go-version-file: 'src/authorization/go.mod'
           cache-dependency-path: 'src/authorization/go.sum'
       - name: Build Authorization Service
         run: go build -v ./cmd/authorization
