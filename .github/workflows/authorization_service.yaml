@@ -40,7 +40,7 @@ on:
       - 'src/authorization/**'
 
 env:
-  REGISTRY_IMAGE: nakedsofteare/authorization-service
+  REGISTRY_IMAGE: nakedsoftware/authorization-service
 
 jobs:
   build_and_test:
