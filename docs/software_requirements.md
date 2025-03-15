@@ -5,6 +5,7 @@ In order to successfully build, run, debug, and develop for Authorization Servic
 1. [Homebrew](#homebrew)
 1. [Git](#git)
 1. [GitHub CLI](#github-cli)
+1. [Fast Node Manager](#fast-node-manager)
 
 ## Homebrew
 
@@ -49,4 +50,20 @@ brew install gh
 
 ```batch
 winget install --id GitHub.cli
+```
+
+## Fast Node Manager
+
+[Fast Node Manager](https://github.com/Schniz/fnm) is a version manager for [Node.js](https://nodejs.org). Fast Node Manager can be used to install and manage multiple versions of Node.js, and allow developers to switch between versions as necessary for different projects. Fast Node Manager can integrate into the developer's shell and automatically select the correct version of Node.js to use for a particular project when a `.node-version` file is present in the root directory of a project. The `.node-version` file contains the version number of Node.js that should be used with the software project.
+
+- __Apple macOS or Linux__: Fast Node Manager can be installed using a script you download. The script will use [Homebrew](#homebrew) to install Fast Node Manager and update your shell profile. In a terminal, run:
+
+```shell
+curl -fsSL https://fnm.vercel.app/install | bash
+```
+
+- __Microsoft Windows__: Fast Node Manager can be installed using [WinGet](https://learn.microsoft.com/en-us/windows/package-manager/winget/). In a Command Prompt window, run:
+
+```batch
+winget install Schniz.fnm
 ```

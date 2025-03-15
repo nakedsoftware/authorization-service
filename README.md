@@ -13,3 +13,21 @@ Before beginning to work with the Authorization Service source code, please read
     gh repo clone nakedsoftware/authorization-service
 
 This command will clone the repository into the `authorization-service` subdirectory and will check out the `main` branch.
+
+After cloning the repository, there are additional dependencies such as tools and libraries that need to be downloaded and configured before you can begin working with the source code. These steps have been automated and stored in the [`setup.sh`](setup.sh) or [`Setup.bat`](Setup.bat) programs. There programs need to be run first.
+
+On Apple macOS or Linux, in the terminal, run:
+
+```shell
+cd authorization-service
+./setup.sh
+```
+
+On Microsoft Windows, in the Command Prompt window, run:
+
+```batch
+cd authorization-service
+Setup.bat
+```
+
+After `setup.sh` or `Setup.bat` completes, the repository is ready for development.
