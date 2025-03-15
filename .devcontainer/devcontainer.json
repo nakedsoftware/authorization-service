@@ -1,5 +1,5 @@
 {
-    "name": "sharepoint-embedded-poc",
+    "name": "authorization-service",
     "dockerComposeFile": "compose.yaml",
     "service": "app",
     "workspaceFolder": "/workspace",
@@ -8,11 +8,16 @@
         "ghcr.io/devcontainers/features/github-cli:1": {},
         "ghcr.io/devcontainers/features/node:1": {
             "version": "22.14.0"
+        },
+        "ghcr.io/devcontainers/features/go:1": {
+            "version": "1.24.1"
         }
     },
     "customizations": {
         "vscode": {
-            "extensions": [],
+            "extensions": [
+                "golang.Go"
+            ],
             "settings": {}
         }
     },
