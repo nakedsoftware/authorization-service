@@ -1,0 +1,45 @@
+{
+    "name": "@nakedsoftware/authorization-service",
+    "type": "module",
+    "version": "1.0.0",
+    "description": "Authorization Service is used to identify users and authorize client application access to protected resources",
+    "keyowrds": [
+        "authentication",
+        "authorization",
+        "naked",
+        "oauth",
+        "openid",
+        "passkey",
+        "webauthn"
+    ],
+    "homepage": "https://nakedsoftware.github.io/authorization-service",
+    "bugs": {
+        "email": "support@naked.software",
+        "url": "https://github.com/nakedsoftware/authorization-service/issues"
+    },
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Michael Collins",
+            "email": "michael.collins@naked.software",
+            "url": "https://michaelfcollins3.dev"
+        }
+    ],
+    "repository": "github:nakedsoftware/authorization-service",
+    "scripts": {},
+    "devDependencies": {},
+    "engines": {
+        "node": "22.14.0"
+    },
+    "devEngines": {
+        "runtime": {
+            "name": "node",
+            "onFail": "error"
+        },
+        "packageManager": {
+            "name": "npm",
+            "onFail": "error"
+        }
+    },
+    "private": "true"
+}
