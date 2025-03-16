@@ -40,7 +40,8 @@ on:
       - 'src/authorization/**'
 
 env:
-  REGISTRY_IMAGE: nakedsoftware/authorization-service
+  REGISTRY: ghcr.io
+  REGISTRY_IMAGE: ${{ github.repository_owner }}/authorization-service
 
 jobs:
   build_and_test:
@@ -52,6 +53,11 @@ jobs:
         architecture:
           - amd64
           - arm64
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
@@ -69,22 +75,30 @@ jobs:
           GCO_ENABLED: 0
           GOOS: linux
           GOARCH: ${{ matrix.architecture }}
+      - name: Log into GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY}}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Get Docker Metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY_IMAGE }}
-      - name: Log into GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          images: ${{ env.REGISTRY }}/${{ env.REGISTRY_IMAGE }}
       - name: Build Docker Container
+        id: push
         uses: docker/build-push-action@v6
         with:
           context: src/authorization
           platforms: linux/${{ matrix.architecture }}
           labels: ${{ steps.meta.outputs.labels}}
-          tags: ${{ env.REGISTRY_IMAGE }}
+          tags: ${{ steps.meta.outputs.tags }}
           outputs: type=image,push-by-digest=true,name-canonical=true,push=true
+          push: true
+      - name: Generate Artifact Attestation
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.REGISTRY_IMAGE }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
