@@ -102,10 +102,10 @@ jobs:
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
       - name: Export digest
-          run: |
-            mkdir -p ${{ runner.temp }}/digests
-            digest="${{ steps.push.outputs.digest }}"
-            touch "${{ runner.temp }}/digests/${digest#sha256:}"
+        run: |
+          mkdir -p ${{ runner.temp }}/digests
+          digest="${{ steps.push.outputs.digest }}"
+          touch "${{ runner.temp }}/digests/${digest#sha256:}"
       - name: Upload digest
         uses: actions/upload-artifact@v4
         with:
