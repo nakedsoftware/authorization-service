@@ -52,3 +52,5 @@ jobs:
           cache-dependency-path: 'src/authorization/go.sum'
       - name: Lint Source Code
         uses: golangci/golangci-lint-action@v6
+        with:
+          working-directory: src/authorization
