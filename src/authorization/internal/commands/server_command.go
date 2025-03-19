@@ -18,29 +18,43 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-export default {
-    extends: ['@commitlint/config-conventional'],
-    rules: {
-        'body-max-line-length': [1, 'always', 72],
-        'header-max-length': [2, 'always', 52],
-        'scope-enum': [2, 'always', []],
-        'type-enum': [2, 'always', [
-            'build',
-            'change',
-            'chore',
-            'ci',
-            'deprecate',
-            'docs',
-            'feat',
-            'fix',
-            'perf',
-            'refactor',
-            'remove',
-            'revert',
-            'security',
-            'spike',
-            'style',
-            'test'
-        ]]
-    }
-};
+package commands
+
+import (
+	"github.com/nakedsoftware/authorization-service/src/authorization/internal/server"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+)
+
+const defaultPort int16 = 80
+const portFlag = "port"
+const portKey = "server.port"
+
+var serverCommand = &cobra.Command{
+	Use:   "server",
+	Short: "Starts Authorization Service to listen for requests",
+	Long: `
+The server command starts Authorization Service to listen for incoming
+authorization and token requests from client applications.
+`,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return server.Serve(cmd.Context(), viper.GetInt(portKey))
+	},
+}
+
+func init() {
+	rootCommand.AddCommand(serverCommand)
+
+	_ = viper.BindEnv(portKey, "APP_PORT")
+	viper.SetDefault(portKey, defaultPort)
+	serverCommand.PersistentFlags().Int16P(
+		portFlag,
+		"p",
+		defaultPort,
+		"The TCP/IP port to listen for requests on",
+	)
+	_ = viper.BindPFlag(
+		portKey,
+		serverCommand.PersistentFlags().Lookup(portFlag),
+	)
+}

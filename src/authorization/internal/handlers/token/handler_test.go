@@ -18,29 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-export default {
-    extends: ['@commitlint/config-conventional'],
-    rules: {
-        'body-max-line-length': [1, 'always', 72],
-        'header-max-length': [2, 'always', 52],
-        'scope-enum': [2, 'always', []],
-        'type-enum': [2, 'always', [
-            'build',
-            'change',
-            'chore',
-            'ci',
-            'deprecate',
-            'docs',
-            'feat',
-            'fix',
-            'perf',
-            'refactor',
-            'remove',
-            'revert',
-            'security',
-            'spike',
-            'style',
-            'test'
-        ]]
-    }
-};
+package token
+
+import (
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
+	"testing"
+)
+
+func TestHandler(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "Token Handler Suite")
+}

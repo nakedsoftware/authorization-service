@@ -18,29 +18,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-export default {
-    extends: ['@commitlint/config-conventional'],
-    rules: {
-        'body-max-line-length': [1, 'always', 72],
-        'header-max-length': [2, 'always', 52],
-        'scope-enum': [2, 'always', []],
-        'type-enum': [2, 'always', [
-            'build',
-            'change',
-            'chore',
-            'ci',
-            'deprecate',
-            'docs',
-            'feat',
-            'fix',
-            'perf',
-            'refactor',
-            'remove',
-            'revert',
-            'security',
-            'spike',
-            'style',
-            'test'
-        ]]
-    }
-};
+package authorization
+
+import (
+	"net/http"
+	"net/url"
+)
+
+type handler struct{}
+
+func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	_ = r.ParseForm()
+	if redirectURI, ok := r.Form["redirect_uri"]; ok {
+		redirectURL, _ := url.Parse(redirectURI[0])
+		query, _ := url.ParseQuery(redirectURL.RawQuery)
+
+		if state, ok := r.Form["state"]; ok {
+			query.Set("state", state[0])
+		}
+
+		query.Set("code", "0123456789")
+
+		redirectURL.RawQuery = query.Encode()
+		w.Header().Add("Location", redirectURL.String())
+	}
+
+	w.WriteHeader(http.StatusFound)
+}
+
+func NewHandler() http.Handler {
+	return &handler{}
+}
