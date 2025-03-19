@@ -71,17 +71,15 @@ func Serve(ctx context.Context, port int) error {
 			os.Exit(0)
 		}
 
-		select {
-		case <-timeoutCtx.Done():
-			err := timeoutCtx.Err()
-			if errors.Is(err, context.DeadlineExceeded) {
-				slog.Error("timeout exceeded; forcing shutdown")
-			} else if err != nil {
-				slog.Error("failed to shutdown server", "error", err.Error())
-			}
-
-			os.Exit(0)
+		<-timeoutCtx.Done()
+		err := timeoutCtx.Err()
+		if errors.Is(err, context.DeadlineExceeded) {
+			slog.Error("timeout exceeded; forcing shutdown")
+		} else if err != nil {
+			slog.Error("failed to shutdown server", "error", err.Error())
 		}
+
+		os.Exit(0)
 	})
 
 	slog.Info("listening for requests", "address", listenAddress)

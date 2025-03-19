@@ -50,9 +50,25 @@ permissions:
   id-token: write
 
 jobs:
-  build_and_test:
-    name: Build and Test
+  test:
+    name: Test
     runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'src/authorization/go.mod'
+          cache-dependency-path: 'src/authorization/go.sum'
+      - name: Run Unit Test Suite
+        run: go test ./...
+        working-directory: src/authorization
+
+  build:
+    name: Build
+    runs-on: ubuntu-24.04
+    needs: test
     strategy:
       fail-fast: false
       matrix:
@@ -118,7 +134,7 @@ jobs:
   merge_platform_containers:
     name: Merge Platform Containers
     runs-on: ubuntu-24.04
-    needs: build_and_test
+    needs: build
     steps:
       - name: Download Digests
         uses: actions/download-artifact@v4

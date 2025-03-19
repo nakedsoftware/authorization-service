@@ -21,31 +21,12 @@
 package authorization
 
 import (
-	"net/http"
-	"net/url"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
+	"testing"
 )
 
-type handler struct{}
-
-func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	_ = r.ParseForm()
-	if redirectURI, ok := r.Form["redirect_uri"]; ok {
-		redirectURL, _ := url.Parse(redirectURI[0])
-		query, _ := url.ParseQuery(redirectURL.RawQuery)
-
-		if state, ok := r.Form["state"]; ok {
-			query.Set("state", state[0])
-		}
-
-		query.Set("code", "0123456789")
-
-		redirectURL.RawQuery = query.Encode()
-		w.Header().Add("Location", redirectURL.String())
-	}
-
-	w.WriteHeader(http.StatusFound)
-}
-
-func NewHandler() http.Handler {
-	return &handler{}
+func TestHandler(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "Authorization Handler Suite")
 }
