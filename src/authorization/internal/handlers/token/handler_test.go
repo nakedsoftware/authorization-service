@@ -21,31 +21,12 @@
 package token
 
 import (
-	"encoding/json"
-	"net/http"
+	. "github.com/onsi/ginkgo/v2"
+	. "github.com/onsi/gomega"
+	"testing"
 )
 
-type handler struct{}
-
-func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	var response = struct {
-		AccessCode   string `json:"access_code"`
-		TokenType    string `json:"token_type"`
-		ExpiresIn    int    `json:"expires_in,omitempty"`
-		RefreshToken string `json:"refresh_token,omitempty"`
-	}{
-		AccessCode:   "0123456789",
-		TokenType:    "bearer",
-		ExpiresIn:    3600,
-		RefreshToken: "refresh_token",
-	}
-
-	w.Header().Set("Content-Type", "application/json;charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	encoder := json.NewEncoder(w)
-	_ = encoder.Encode(&response)
-}
-
-func NewHandler() http.Handler {
-	return &handler{}
+func TestHandler(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "Token Handler Suite")
 }
